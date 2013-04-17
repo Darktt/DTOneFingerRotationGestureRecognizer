@@ -18,6 +18,7 @@
 		55ED6AA8171E291700D5D217 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55ED6AA7171E291700D5D217 /* Default-568h@2x.png */; };
 		55ED6AAB171E291700D5D217 /* DTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55ED6AAA171E291700D5D217 /* DTViewController.m */; };
 		55ED6AAE171E291700D5D217 /* DTViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55ED6AAC171E291700D5D217 /* DTViewController.xib */; };
+		55ED6AB7171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55ED6AB6171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		55ED6AA9171E291700D5D217 /* DTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTViewController.h; sourceTree = "<group>"; };
 		55ED6AAA171E291700D5D217 /* DTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTViewController.m; sourceTree = "<group>"; };
 		55ED6AAD171E291700D5D217 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DTViewController.xib; sourceTree = "<group>"; };
+		55ED6AB5171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTOneFingerRotationGestureRecognizer.h; sourceTree = "<group>"; };
+		55ED6AB6171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTOneFingerRotationGestureRecognizer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,7 @@
 				55ED6AA9171E291700D5D217 /* DTViewController.h */,
 				55ED6AAA171E291700D5D217 /* DTViewController.m */,
 				55ED6AAC171E291700D5D217 /* DTViewController.xib */,
+				55ED6AB4171E295300D5D217 /* DTOneFingerRotationGestureRecognizer */,
 				55ED6A98171E291700D5D217 /* Supporting Files */,
 			);
 			path = DTOneFingerRotationGestureRecognizer;
@@ -105,6 +109,15 @@
 				55ED6AA7171E291700D5D217 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		55ED6AB4171E295300D5D217 /* DTOneFingerRotationGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				55ED6AB5171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.h */,
+				55ED6AB6171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.m */,
+			);
+			path = DTOneFingerRotationGestureRecognizer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +190,7 @@
 				55ED6A9E171E291700D5D217 /* main.m in Sources */,
 				55ED6AA2171E291700D5D217 /* DTAppDelegate.m in Sources */,
 				55ED6AAB171E291700D5D217 /* DTViewController.m in Sources */,
+				55ED6AB7171E295300D5D217 /* DTOneFingerRotationGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

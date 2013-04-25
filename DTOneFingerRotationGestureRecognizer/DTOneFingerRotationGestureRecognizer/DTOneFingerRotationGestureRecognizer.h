@@ -12,6 +12,7 @@
 @interface DTOneFingerRotationGestureRecognizer : UIGestureRecognizer
 
 @property(nonatomic) CGFloat rotation;
+@property(nonatomic, readonly) CGFloat preRotation;
 
 + (id)gestureRecognizerWithTarge:(id)targe action:(SEL)action;
 

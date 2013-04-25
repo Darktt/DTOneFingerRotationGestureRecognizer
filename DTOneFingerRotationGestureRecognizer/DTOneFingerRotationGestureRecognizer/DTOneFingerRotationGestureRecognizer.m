@@ -71,9 +71,12 @@
     
     CGFloat angle = atan2f(currentDiff.y, currentDiff.x) - atan2f(previousDiff.y, previousDiff.x);
     
+    _preRotation = _rotation;
     _rotation += angle;
     
-    [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
+    if (_action != nil) {
+        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

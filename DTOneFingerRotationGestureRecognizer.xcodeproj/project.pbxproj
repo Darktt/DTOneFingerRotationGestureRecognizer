@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525A2B161AB288CB00974484 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 525A2B151AB288CB00974484 /* Images.xcassets */; };
+		525A2B191AB288F500974484 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 525A2B171AB288F500974484 /* Launch Screen.xib */; };
 		55ED6A92171E291700D5D217 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55ED6A91171E291700D5D217 /* UIKit.framework */; };
 		55ED6A94171E291700D5D217 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55ED6A93171E291700D5D217 /* Foundation.framework */; };
 		55ED6A96171E291700D5D217 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55ED6A95171E291700D5D217 /* CoreGraphics.framework */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		525A2B151AB288CB00974484 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		525A2B181AB288F500974484 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		55ED6A8E171E291700D5D217 /* DTOneFingerRotationGestureRecognizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTOneFingerRotationGestureRecognizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55ED6A91171E291700D5D217 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		55ED6A93171E291700D5D217 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,6 +96,8 @@
 				55ED6AAA171E291700D5D217 /* DTViewController.m */,
 				55ED6AAC171E291700D5D217 /* DTViewController.xib */,
 				55ED6AB4171E295300D5D217 /* DTOneFingerRotationGestureRecognizer */,
+				525A2B151AB288CB00974484 /* Images.xcassets */,
+				525A2B171AB288F500974484 /* Launch Screen.xib */,
 				55ED6A98171E291700D5D217 /* Supporting Files */,
 			);
 			path = DTOneFingerRotationGestureRecognizer;
@@ -175,7 +181,9 @@
 				55ED6A9C171E291700D5D217 /* InfoPlist.strings in Resources */,
 				55ED6AA4171E291700D5D217 /* Default.png in Resources */,
 				55ED6AA6171E291700D5D217 /* Default@2x.png in Resources */,
+				525A2B161AB288CB00974484 /* Images.xcassets in Resources */,
 				55ED6AA8171E291700D5D217 /* Default-568h@2x.png in Resources */,
+				525A2B191AB288F500974484 /* Launch Screen.xib in Resources */,
 				55ED6AAE171E291700D5D217 /* DTViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +205,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		525A2B171AB288F500974484 /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				525A2B181AB288F500974484 /* en */,
+			);
+			name = "Launch Screen.xib";
+			sourceTree = "<group>";
+		};
 		55ED6A9A171E291700D5D217 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -275,9 +291,12 @@
 		55ED6AB2171E291700D5D217 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTOneFingerRotationGestureRecognizer/DTOneFingerRotationGestureRecognizer-Prefix.pch";
 				INFOPLIST_FILE = "DTOneFingerRotationGestureRecognizer/DTOneFingerRotationGestureRecognizer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -286,9 +305,12 @@
 		55ED6AB3171E291700D5D217 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTOneFingerRotationGestureRecognizer/DTOneFingerRotationGestureRecognizer-Prefix.pch";
 				INFOPLIST_FILE = "DTOneFingerRotationGestureRecognizer/DTOneFingerRotationGestureRecognizer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -313,6 +335,7 @@
 				55ED6AB3171E291700D5D217 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

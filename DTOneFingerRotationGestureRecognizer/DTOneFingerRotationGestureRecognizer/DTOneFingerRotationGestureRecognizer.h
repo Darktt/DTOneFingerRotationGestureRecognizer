@@ -2,18 +2,17 @@
 //  DTOneFingerRotationGestureRecognizer.h
 //  OneFingerRotationGesture
 //
-//  Created by Darktt on 11/1/13.
+//  Created by Darktt on 2013/11/1.
 //  Copyright (c) 2013 Darktt. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIGestureRecognizerSubclass.h>
 
 @interface DTOneFingerRotationGestureRecognizer : UIGestureRecognizer
 
-@property(nonatomic) CGFloat rotation;
-@property(nonatomic, readonly) CGFloat preRotation;
+@property(assign, nonatomic) CGFloat rotation;
+@property(readonly, nonatomic) CGFloat preRotation;
 
-+ (id)gestureRecognizerWithTarge:(id)targe action:(SEL)action;
++ (instancetype)gestureRecognizerWithTarge:(id)targe action:(SEL)action;
 
 @end

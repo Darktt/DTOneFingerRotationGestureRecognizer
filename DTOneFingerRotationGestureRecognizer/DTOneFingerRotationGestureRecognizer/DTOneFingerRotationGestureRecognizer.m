@@ -2,9 +2,11 @@
 //  DTOneFingerRotationGestureRecognizer.m
 //  OneFingerRotationGesture
 //
-//  Created by Darktt on 11/1/13.
+//  Created by Darktt on 2013/11/1.
 //  Copyright (c) 2013 Darktt. All rights reserved.
 //
+
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 #import "DTOneFingerRotationGestureRecognizer.h"
 
@@ -14,15 +16,17 @@
     SEL _action;
 }
 
+@property(assign, nonatomic) CGFloat preRotation;
+
 @end
 
 @implementation DTOneFingerRotationGestureRecognizer
 
-+ (id)gestureRecognizerWithTarge:(id)targe action:(SEL)action
++ (instancetype)gestureRecognizerWithTarge:(id)targe action:(SEL)action
 {
 #if __has_feature(objc_arc)
     // ARC is On
-    DTOneFingerRotationGestureRecognizer *gesture = [[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action];
+    DTOneFingerRotationGestureRecognizer *__autoreleasing gesture = [[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action];
 #else
     // ARC is Off
     DTOneFingerRotationGestureRecognizer *gesture = [[[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action] autorelease];
@@ -31,7 +35,7 @@
     return gesture;
 }
 
-- (id)initWithTarget:(id)target action:(SEL)action
+- (instancetype)initWithTarget:(id)target action:(SEL)action
 {
     self = [super initWithTarget:target action:action];
     if (self == nil) return nil;
@@ -44,13 +48,27 @@
     return self;
 }
 
+- (void)dealloc
+{
+    _targe = nil;
+    _action = nil;
+    
+#if !__has_feature(objc_arc)
+    
+    [super dealloc];
+    
+#endif
+}
+
 #pragma mark - GestureRecognizer implementation
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
     
-    if ([[event touchesForGestureRecognizer:self] count] > 1) {
+    NSSet *_touches = [event touchesForGestureRecognizer:self];
+    
+    if ([_touches count] > 1) {
         [self setState:UIGestureRecognizerStateFailed];
     }
 }
@@ -61,18 +79,21 @@
     
     UITouch *touch = [touches anyObject];
     
-    CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+    CGPoint center = (CGPoint) {
+        .x = CGRectGetMidX(self.view.bounds),
+        .y = CGRectGetMidY(self.view.bounds)
+    };
     
-    CGPoint current = [touch locationInView:self.view];
-    CGPoint previous = [touch previousLocationInView:self.view];
+    CGPoint currentPoint = [touch locationInView:self.view];
+    CGPoint previousPoint = [touch previousLocationInView:self.view];
     
-    CGPoint currentDiff = CGPointMake(current.x - center.x, current.y - center.y);
-    CGPoint previousDiff = CGPointMake(previous.x - center.x, previous.y - center.y);
+    CGPoint currentPointDifference = CGPointMake(currentPoint.x - center.x, currentPoint.y - center.y);
+    CGPoint previousPointDifference = CGPointMake(previousPoint.x - center.x, previousPoint.y - center.y);
     
-    CGFloat angle = atan2f(currentDiff.y, currentDiff.x) - atan2f(previousDiff.y, previousDiff.x);
+    CGFloat angle = atan2f(currentPointDifference.y, currentPointDifference.x) - atan2f(previousPointDifference.y, previousPointDifference.x);
     
-    _preRotation = _rotation;
-    _rotation += angle;
+    [self setPreRotation:_rotation];
+    self.rotation += angle;
     
     if (_action != nil) {
         [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];

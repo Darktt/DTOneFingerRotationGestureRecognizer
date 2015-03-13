@@ -2,7 +2,7 @@
 //  DTViewController.m
 //  DTOneFingerRotationGestureRecognizer
 //
-//  Created by Darktt on 13/4/17.
+//  Created by Darktt on 2013/4/17.
 //  Copyright (c) 2013 Darktt. All rights reserved.
 //
 
@@ -10,6 +10,9 @@
 #import "DTOneFingerRotationGestureRecognizer.h"
 
 @interface DTViewController ()
+{
+    UIView *_view;
+}
 
 @end
 
@@ -20,14 +23,25 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
-    [view setCenter:self.view.center];
-    [view setBackgroundColor:[UIColor redColor]];
+    _view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [_view setBackgroundColor:[UIColor redColor]];
     
     DTOneFingerRotationGestureRecognizer *oneRotation = [DTOneFingerRotationGestureRecognizer gestureRecognizerWithTarge:self action:@selector(rotationView:)];
-    [view setGestureRecognizers:@[oneRotation]];
+    [_view addGestureRecognizer:oneRotation];
     
-    [self.view addSubview:view];
+    [self.view addSubview:_view];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [_view setCenter:self.view.center];
+}
+
+- (void)dealloc
+{
+    _view = nil;
 }
 
 - (void)didReceiveMemoryWarning

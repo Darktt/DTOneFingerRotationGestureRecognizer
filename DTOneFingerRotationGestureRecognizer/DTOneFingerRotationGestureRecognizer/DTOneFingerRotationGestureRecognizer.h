@@ -10,8 +10,10 @@
 
 @interface DTOneFingerRotationGestureRecognizer : UIGestureRecognizer
 
-@property(assign, nonatomic) CGFloat rotation;
-@property(readonly, nonatomic) CGFloat preRotation;
+@property (readonly, nonatomic) CGFloat angle;
+
+@property (assign, nonatomic, getter = isScaleEnabled) BOOL scaleEnabled;
+@property (readonly, nonatomic) CGFloat scale;
 
 + (instancetype)gestureRecognizerWithTarge:(id)targe action:(SEL)action;
 

@@ -10,13 +10,22 @@
 
 #import "DTOneFingerRotationGestureRecognizer.h"
 
+CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
+    CGFloat fx = (point2.x - point1.x);
+    CGFloat fy = (point2.y - point1.y);
+    return sqrt((fx * fx + fy * fy));
+}
+
 @interface DTOneFingerRotationGestureRecognizer ()
 {
     id _targe;
     SEL _action;
+    
+    CGFloat _distance;
 }
 
-@property(assign, nonatomic) CGFloat preRotation;
+@property (assign, nonatomic) CGFloat angle;
+@property (assign, nonatomic) CGFloat scale;
 
 @end
 
@@ -43,7 +52,9 @@
     _targe = target;
     _action = action;
     
-    _rotation = 0.0f;
+    [self setAngle:0.0f];
+    [self setScale:1.0f];
+    [self setScaleEnabled:NO];
     
     return self;
 }
@@ -70,14 +81,37 @@
     
     if ([_touches count] > 1) {
         [self setState:UIGestureRecognizerStateFailed];
+        
+        return;
     }
+    
+    [self setState:UIGestureRecognizerStateBegan];
+    
+    if (_action != nil) {
+        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
+    }
+    
+    if (!self.scaleEnabled) {
+        return;
+    }
+    
+    UITouch *touch = (UITouch *)[touches anyObject];
+    
+    CGPoint center = (CGPoint) {
+        .x = CGRectGetMidX(self.view.bounds),
+        .y = CGRectGetMidY(self.view.bounds)
+    };
+    
+    CGPoint touchLocation = [touch locationInView:self.view];
+    
+    _distance = CGPointGetDistance(center, touchLocation);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
     
-    UITouch *touch = [touches anyObject];
+    UITouch *touch = (UITouch *)[touches anyObject];
     
     CGPoint center = (CGPoint) {
         .x = CGRectGetMidX(self.view.bounds),
@@ -92,8 +126,14 @@
     
     CGFloat angle = atan2f(currentPointDifference.y, currentPointDifference.x) - atan2f(previousPointDifference.y, previousPointDifference.x);
     
-    [self setPreRotation:_rotation];
-    self.rotation += angle;
+    self.angle += angle;
+    
+    if (self.scaleEnabled) {
+        CGFloat scale = CGPointGetDistance(center, currentPoint) / _distance;
+        [self setScale:scale];
+    }
+    
+    [self setState:UIGestureRecognizerStateChanged];
     
     if (_action != nil) {
         [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
@@ -103,11 +143,23 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
+    
+    [self setState:UIGestureRecognizerStateEnded];
+    
+    if (_action != nil) {
+        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
+    
+    [self setState:UIGestureRecognizerStateCancelled];
+    
+    if (_action != nil) {
+        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
+    }
 }
 
 - (void)reset

@@ -31,7 +31,7 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
 
 @implementation DTOneFingerRotationGestureRecognizer
 
-+ (instancetype)gestureRecognizerWithTarge:(id)targe action:(SEL)action
++ (instancetype)gestureRecognizerWithTarget:(id)targe action:(SEL)action
 {
 #if __has_feature(objc_arc)
     // ARC is On

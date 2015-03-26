@@ -9,9 +9,14 @@
 #import "DTViewController.h"
 #import "DTOneFingerRotationGestureRecognizer.h"
 
+CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat wScale, CGFloat hScale) {
+    return CGRectMake(rect.origin.x, rect.origin.y, rect.size.width * wScale, rect.size.height * hScale);
+}
+
 @interface DTViewController ()
 {
-    UIView *_view;
+    UIView *__weak _weakView;
+    CGRect _defaultBounce;
 }
 
 @end
@@ -23,25 +28,22 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    _view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
-    [_view setBackgroundColor:[UIColor redColor]];
+    DTOneFingerRotationGestureRecognizer *oneRotation = [DTOneFingerRotationGestureRecognizer gestureRecognizerWithTarget:self action:@selector(rotationView:)];
+    [oneRotation setScaleEnabled:YES];
     
-    DTOneFingerRotationGestureRecognizer *oneRotation = [DTOneFingerRotationGestureRecognizer gestureRecognizerWithTarge:self action:@selector(rotationView:)];
-    [_view addGestureRecognizer:oneRotation];
+    UIView *__autoreleasing view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    [view setBackgroundColor:[UIColor redColor]];
+    [view addGestureRecognizer:oneRotation];
     
-    [self.view addSubview:_view];
+    [self.view addSubview:view];
+    _weakView = view;
 }
 
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
-    [_view setCenter:self.view.center];
-}
-
-- (void)dealloc
-{
-    _view = nil;
+    [_weakView setCenter:self.view.center];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,7 +56,24 @@
 {
     UIView *view = sender.view;
     
-    [view setTransform:CGAffineTransformMakeRotation(sender.rotation)];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        _defaultBounce = view.bounds;
+    }
+    
+    if (sender.state != UIGestureRecognizerStateChanged) {
+        return;
+    }
+    
+    CGFloat minimumScale = (CGRectGetWidth(_defaultBounce) / 2) / CGRectGetWidth(_defaultBounce);
+    
+    CGFloat scale = MAX(sender.scale, minimumScale);
+    
+    CGRect scaledBounds = CGRectScale(_defaultBounce, scale, scale);
+    [view setBounds:scaledBounds];
+    
+    CGAffineTransform transform = CGAffineTransformMakeRotation(sender.angle);
+    
+    [view setTransform:transform];
 }
 
 @end

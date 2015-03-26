@@ -15,6 +15,6 @@
 @property (assign, nonatomic, getter = isScaleEnabled) BOOL scaleEnabled;
 @property (readonly, nonatomic) CGFloat scale;
 
-+ (instancetype)gestureRecognizerWithTarge:(id)targe action:(SEL)action;
++ (instancetype)gestureRecognizerWithTarget:(id)targe action:(SEL)action;
 
 @end

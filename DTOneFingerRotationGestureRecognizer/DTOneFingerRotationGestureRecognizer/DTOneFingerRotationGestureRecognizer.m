@@ -10,15 +10,28 @@
 
 #import "DTOneFingerRotationGestureRecognizer.h"
 
+CGRect CGRectScale(CGRect rect, CGFloat wScale, CGFloat hScale) {
+    CGRect newRect = (CGRect) {
+        .origin = rect.origin,
+        .size = (CGSize) {
+            .width = CGRectGetWidth(rect) * wScale,
+            .height = CGRectGetHeight(rect) * hScale
+        }
+    };
+    
+    return newRect;
+}
+
 CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
     CGFloat fx = (point2.x - point1.x);
     CGFloat fy = (point2.y - point1.y);
+    
     return sqrt((fx * fx + fy * fy));
 }
 
 @interface DTOneFingerRotationGestureRecognizer ()
 {
-    id _targe;
+    id __unsafe_unretained _targe;
     SEL _action;
     
     CGFloat _distance;

@@ -9,10 +9,6 @@
 #import "DTViewController.h"
 #import "DTOneFingerRotationGestureRecognizer.h"
 
-CG_INLINE CGRect CGRectScale(CGRect rect, CGFloat wScale, CGFloat hScale) {
-    return CGRectMake(rect.origin.x, rect.origin.y, rect.size.width * wScale, rect.size.height * hScale);
-}
-
 @interface DTViewController ()
 {
     UIView *__weak _weakView;

@@ -1,14 +1,13 @@
 //
 //  DTOneFingerRotationGestureRecognizer.h
-//  OneFingerRotationGesture
 //
 //  Created by Darktt on 2013/11/1.
-//  Copyright (c) 2013 Darktt. All rights reserved.
+//  Copyright © 2013 Darktt. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
-CG_EXTERN CGRect CGRectScale(CGRect rect, CGFloat wScale, CGFloat hScale);
+CG_EXTERN CGRect CGRectScale(CGRect rect, CGFloat wScale, CGFloat hScale) NS_SWIFT_NAME(CGRectScale(rect:wScale:hScale:));
 
 NS_ASSUME_NONNULL_BEGIN
 @interface DTOneFingerRotationGestureRecognizer : UIGestureRecognizer
@@ -35,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return The gesture recongnizer object instance.
  *
  */
-+ (instancetype)gestureRecognizerWithTarget:(id)targe action:(SEL)action;
++ (instancetype)gestureRecognizerWithTarget:(nullable id)targe action:(nullable SEL)action;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -11,7 +11,7 @@
 
 @interface DTViewController ()
 {
-    UIView *__weak _weakView;
+    UIView *_weakView;
     CGRect _defaultBounce;
 }
 
@@ -27,12 +27,13 @@
     DTOneFingerRotationGestureRecognizer *oneRotation = [DTOneFingerRotationGestureRecognizer gestureRecognizerWithTarget:self action:@selector(rotationView:)];
     [oneRotation setScaleEnabled:YES];
     
-    UIView *__autoreleasing view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 250)];
     [view setBackgroundColor:[UIColor redColor]];
     [view addGestureRecognizer:oneRotation];
     
     [self.view addSubview:view];
     _weakView = view;
+    [view release];
 }
 
 - (void)viewWillLayoutSubviews

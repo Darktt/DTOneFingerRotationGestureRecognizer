@@ -1,12 +1,11 @@
 //
 //  DTOneFingerRotationGestureRecognizer.m
-//  OneFingerRotationGesture
 //
 //  Created by Darktt on 2013/11/1.
-//  Copyright (c) 2013 Darktt. All rights reserved.
+//  Copyright © 2013 Darktt. All rights reserved.
 //
 
-#import <UIKit/UIGestureRecognizerSubclass.h>
+@import UIKit.UIGestureRecognizerSubclass;
 
 #import "DTOneFingerRotationGestureRecognizer.h"
 
@@ -31,9 +30,6 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
 
 @interface DTOneFingerRotationGestureRecognizer ()
 {
-    id __unsafe_unretained _targe;
-    SEL _action;
-    
     CGFloat _distance;
 }
 
@@ -46,24 +42,15 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
 
 + (instancetype)gestureRecognizerWithTarget:(id)targe action:(SEL)action
 {
-#if __has_feature(objc_arc)
-    // ARC is On
-    DTOneFingerRotationGestureRecognizer *__autoreleasing gesture = [[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action];
-#else
-    // ARC is Off
-    DTOneFingerRotationGestureRecognizer *gesture = [[[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action] autorelease];
-#endif
+    DTOneFingerRotationGestureRecognizer *gesture = [[DTOneFingerRotationGestureRecognizer alloc] initWithTarget:targe action:action];
     
-    return gesture;
+    return [gesture autorelease];
 }
 
 - (instancetype)initWithTarget:(id)target action:(SEL)action
 {
     self = [super initWithTarget:target action:action];
     if (self == nil) return nil;
-    
-    _targe = target;
-    _action = action;
     
     [self setAngle:0.0f];
     [self setScale:1.0f];
@@ -74,14 +61,8 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
 
 - (void)dealloc
 {
-    _targe = nil;
-    _action = nil;
-    
-#if !__has_feature(objc_arc)
     
     [super dealloc];
-    
-#endif
 }
 
 #pragma mark - GestureRecognizer implementation
@@ -90,19 +71,13 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
 {
     [super touchesBegan:touches withEvent:event];
     
-    NSSet *_touches = [event touchesForGestureRecognizer:self];
-    
-    if ([_touches count] > 1) {
+    if (touches.count > 1) {
         [self setState:UIGestureRecognizerStateFailed];
         
         return;
     }
     
     [self setState:UIGestureRecognizerStateBegan];
-    
-    if (_action != nil) {
-        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
-    }
     
     if (!self.scaleEnabled) {
         return;
@@ -147,10 +122,6 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
     }
     
     [self setState:UIGestureRecognizerStateChanged];
-    
-    if (_action != nil) {
-        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
-    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -158,10 +129,6 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
     [super touchesEnded:touches withEvent:event];
     
     [self setState:UIGestureRecognizerStateEnded];
-    
-    if (_action != nil) {
-        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
-    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -169,10 +136,6 @@ CG_INLINE CGFloat CGPointGetDistance(CGPoint point1, CGPoint point2) {
     [super touchesCancelled:touches withEvent:event];
     
     [self setState:UIGestureRecognizerStateCancelled];
-    
-    if (_action != nil) {
-        [[UIApplication sharedApplication] sendAction:_action to:_targe from:self forEvent:event];
-    }
 }
 
 - (void)reset
